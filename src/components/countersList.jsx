@@ -6,7 +6,7 @@ const CountersList = () => {
         { id: 0, value: 0, name: "Ненужная вещь", price: "200" },
         { id: 1, value: 4, name: "Ложка" },
         { id: 2, value: 0, name: "Вилка" },
-        { id: 3, value: 0, name: "Тарелка" },
+        { id: 3, value: 1, name: "Тарелка" },
         { id: 4, value: 0, name: "Набор минималиста" },
     ];
 
@@ -20,25 +20,37 @@ const CountersList = () => {
     };
 
 
-    const handleIncrement = (id) => {
+    const handleDecrement= (id) => {
 
+        const indexElem = counters.findIndex((count) => count.id === id);
+        const newCounters = [...counters];
+        newCounters[indexElem].value--
+        setCounters(newCounters)
+
+        console.log(newCounters);
+        console.log(indexElem);
     }
   
-    const handleDecrement = (id) => {
-   
+    const handleIncrement = (id) => {
+        const indexElem = counters.findIndex((count) => count.id === id);
+        const newCounters = [...counters];
+        newCounters[indexElem].value++
+        setCounters(newCounters)
     }
   
 
     return (
         <>
             {counters.map((count) => (
-                <Counter key={count.id} onDelete={handleDelete} {...count} />
+                <Counter key={count.id}
+                 onDelete={handleDelete} 
+                 onIncrement={handleIncrement}
+                 onDecrement={handleDecrement}
+                 {...count} />
             ))}
             <button
                 className='btn btn-primary btn-sm m-2'
                 onClick={handleReset}
-                onIncrement={handleIncrement}
-                onDecrement={handleDecrement}
             >
                 Сброс
             </button>
